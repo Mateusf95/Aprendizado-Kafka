@@ -2,16 +2,20 @@ package org.example;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
+import java.util.HashMap;
+
 
 public class EmailService {
 
     public static void main(String[] args) {
         try(var service = new KafkaService(EmailService.class.getSimpleName(),"ECOMMERCE_SEND_EMAIL",
-                EmailService::parse)){
+                EmailService::parse,
+                Email.class,
+                new HashMap<>())){
             service.run();
         }
     }
-    private static void parse(ConsumerRecord<String, String> record) {
+    private static void parse(ConsumerRecord<String, Email> record) {
         System.out.println("----------------------------------------");
         System.out.println("Send email");
         System.out.println(record.key());

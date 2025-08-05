@@ -4,6 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -12,14 +13,16 @@ public class FraudDetectorService {
 
     public static void main(String[] args) {
 
-        try(var service = new KafkaService(FraudDetectorService.class.getSimpleName(),
+        try(var service = new KafkaService<>(FraudDetectorService.class.getSimpleName(),
                 "ECOMMERCE_NEW_ORDER",
-                FraudDetectorService::parse)){
+                FraudDetectorService::parse,
+                Order.class,
+                new HashMap<>())){
             service.run();
         }
     }
 
-    private static void parse(ConsumerRecord<String, String> record) {
+    private static void parse(ConsumerRecord<String, Order> record) {
         System.out.println("----------------------------------------");
         System.out.println("Processing new order, checking for fraud");
         System.out.println(record.key());
