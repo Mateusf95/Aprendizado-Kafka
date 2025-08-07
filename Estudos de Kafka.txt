@@ -1,0 +1,31 @@
+Estudos de Kafka
+
+comando para subir o servidor do zookeaper:
+	.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+Comando para subir o servidor do Kafka:
+	.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+Comando para criar um topic:
+	.\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic <NOME_DO_TOPIC>
+
+Comando para verificar os topics criados:
+	.\bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
+
+Comando para um producer:
+	.\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic <NOME_DO_TOPIC>
+
+Comando para um consumer:
+	.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic <NOME_DO_TOPIC>
+	
+	adicione isso no final do comando para que ele leia as mensagens desde de o inicio:
+	--from-beginning
+
+Comando para alterar a partição de um tópico:
+	.\bin\windows\kafka-topics.bat --alter --bootstrap-server localhost:9092 --topic <NOME_DO_TOPIC> --partitions 3
+
+Comando para descrever os tópicos:
+	.\bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --describe
+
+Comando para descrever os consumer groups:
+	.\bin\windows\kafka-consumer-groups.bat --bootstrap-server localhost:9092 --describe
